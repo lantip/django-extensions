@@ -13,29 +13,28 @@ from django_extensions.management.utils import signalcommand
 
 
 class Command(BaseCommand):
-    option_list = BaseCommand.option_list + (
-        make_option('--noinput', action='store_false',
+    def add_arguments(self, parser):
+        parser.add_argument('--noinput', action='store_false',
                     dest='interactive', default=True,
-                    help='Tells Django to NOT prompt the user for input of any kind.'),
-        make_option('--no-utf8', action='store_true',
+                    help='Tells Django to NOT prompt the user for input of any kind.')
+        parser.add_argument('--no-utf8', action='store_true',
                     dest='no_utf8_support', default=False,
-                    help='Tells Django to not create a UTF-8 charset database'),
-        make_option('-U', '--user', action='store',
+                    help='Tells Django to not create a UTF-8 charset database')
+        parser.add_argument('-U', '--user', action='store',
                     dest='user', default=None,
-                    help='Use another user for the database then defined in settings.py'),
-        make_option('-O', '--owner', action='store',
+                    help='Use another user for the database then defined in settings.py')
+        parser.add_argument('-O', '--owner', action='store',
                     dest='owner', default=None,
-                    help='Use another owner for creating the database then the user defined in settings or via --user'),
-        make_option('-P', '--password', action='store',
+                    help='Use another owner for creating the database then the user defined in settings or via --user')
+        parser.add_argument('-P', '--password', action='store',
                     dest='password', default=None,
-                    help='Use another password for the database then defined in settings.py'),
-        make_option('-D', '--dbname', action='store',
+                    help='Use another password for the database then defined in settings.py')
+        parser.add_argument('-D', '--dbname', action='store',
                     dest='dbname', default=None,
-                    help='Use another database name then defined in settings.py'),
-        make_option('-R', '--router', action='store',
+                    help='Use another database name then defined in settings.py')
+        parser.add_argument('-R', '--router', action='store',
                     dest='router', default='default',
-                    help='Use this router-database other then defined in settings.py'),
-    )
+                    help='Use this router-database other then defined in settings.py')
     help = "Resets the database for this project."
 
     @signalcommand
